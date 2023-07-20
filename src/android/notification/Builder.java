@@ -466,8 +466,15 @@ public final class Builder {
 
         int reqCode = random.nextInt();
 
+        int pendingFlags;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            pendingFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            pendingFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
         return PendingIntent.getService(
-                context, reqCode, intent, FLAG_UPDATE_CURRENT);
+                context, reqCode, intent, pendingFlags);
     }
 
     /**
